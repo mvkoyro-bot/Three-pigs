@@ -1,0 +1,25 @@
+@startuml
+[*] --> UnderConstruction : начать строительство
+
+state UnderConstruction {
+    [*] --> Building
+    Building --> Building : продолжать строительство
+}
+
+UnderConstruction --> Ready : завершить строительство
+
+state Ready {
+    [*] --> Standing
+    Standing --> Standing : стоит
+}
+
+Ready --> Destroyed : получить урон > прочности
+
+state Destroyed {
+    [*] --> Ruins
+    Ruins --> Ruins : разрушен
+}
+
+Destroyed --> UnderConstruction : начать перестройку
+
+@enduml

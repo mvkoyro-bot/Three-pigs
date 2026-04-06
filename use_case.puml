@@ -1,0 +1,63 @@
+@startuml
+left to right direction
+
+actor "Поросенок 1" as Pig1
+actor "Поросенок 2" as Pig2
+actor "Поросенок 3" as Pig3
+actor "Волк" as Wolf
+
+package "Строительство домов" {
+  usecase "Построить дом из соломы" as BuildStraw
+  usecase "Построить дом из дерева" as BuildWood
+  usecase "Построить дом из кирпича" as BuildBrick
+  usecase "Спрятать братьев" as HideBrothers
+  usecase "Укрепить дымоход" as StrengthenChimney
+}
+
+package "Атака Волка" {
+  usecase "Дуть на дом" as Blow
+  usecase "Проверить состояние дома" as CheckStatus
+  usecase "Попытаться пролезть в дымоход" as EnterChimney
+  usecase "Съесть поросят" as EatPigs
+}
+
+package "Реакция поросят" {
+  usecase "Спрятаться" as Hide
+  usecase "Убежать к брату" as RunToBrother
+  usecase "Заблокировать дымоход" as BlockChimney
+  usecase "Спастись" as Survive
+}
+
+' ========== ПОРОСЯТА СТРОЯТ ДОМА ==========
+Pig1 --> BuildStraw
+Pig2 --> BuildWood
+Pig3 --> BuildBrick
+
+' ========== ПОРОСЯТА ПРЯЧУТСЯ ==========
+Pig1 --> Hide
+Pig2 --> Hide
+Pig3 --> HideBrothers
+
+' ========== СПАСЕНИЕ БРАТЬЕВ ==========
+HideBrothers ..> RunToBrother : <<include>>
+RunToBrother <.. Hide : <<extend>> : если дом разрушен
+
+' ========== ТРЕТИЙ ПОРОСЕНОК УКРЕПЛЯЕТ ДЫМОХОД ==========
+Pig3 --> StrengthenChimney
+StrengthenChimney ..> BlockChimney : <<include>>
+
+' ========== ВОЛК АТАКУЕТ ==========
+Wolf --> Blow
+Wolf --> CheckStatus
+Wolf --> EnterChimney
+
+' ========== ЗАВИСИМОСТИ АТАКИ ==========
+Blow ..> CheckStatus : <<include>>
+CheckStatus <.. EnterChimney : <<extend>> : если дом разрушен
+EnterChimney ..> EatPigs : <<include>>
+
+' ========== ВОЗМОЖНОСТЬ СПАСТИСЬ ==========
+BlockChimney <.. EatPigs : <<extend>> : если дымоход укреплён
+Survive <.. EatPigs : <<extend>> : если поросята спаслись
+
+@enduml
