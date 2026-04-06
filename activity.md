@@ -82,7 +82,7 @@
 
 ## Диаграмма
 
-![Диаграмма активности](activity.png)
+![Диаграмма активности](activity (1).png)
 
 ```plantuml
 @startuml
