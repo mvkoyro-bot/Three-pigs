@@ -54,7 +54,7 @@ public void buildHouses() {
     woodHouse = new WoodHouse();
     brickHouse = new BrickHouse();
 }
-
+```
 ## Диаграмма
 
 ![Диаграмма классов](class.png)
