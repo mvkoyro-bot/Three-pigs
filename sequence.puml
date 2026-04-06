@@ -1,0 +1,62 @@
+@startuml
+actor "Волк" as Wolf
+participant "Соломенный дом" as StrawHouse
+participant "Деревянный дом" as WoodHouse
+participant "Кирпичный дом" as BrickHouse
+participant "Поросята" as Pigs
+
+== Атака на соломенный дом ==
+Wolf -> StrawHouse: дуть()
+StrawHouse --> Wolf: получить урон
+StrawHouse -> StrawHouse: рассчитать урон с учётом сопротивления
+StrawHouse --> Wolf: состояние (разрушен/не разрушен)
+
+alt Дом разрушен
+    StrawHouse --> Wolf: Дом разрушен!
+    Wolf -> Pigs: погоня за поросятами
+    Pigs -> WoodHouse: спрятаться в деревянном доме
+else Дом устоял
+    StrawHouse --> Wolf: Дом ещё стоит
+end
+
+== Атака на деревянный дом ==
+Wolf -> WoodHouse: дуть()
+WoodHouse --> Wolf: получить урон
+WoodHouse -> WoodHouse: рассчитать урон с учётом сопротивления
+WoodHouse --> Wolf: состояние (разрушен/не разрушен)
+
+alt Дом разрушен
+    WoodHouse --> Wolf: Дом разрушен!
+    Wolf -> Pigs: погоня за поросятами
+    Pigs -> BrickHouse: спрятаться в кирпичном доме
+else Дом устоял
+    WoodHouse --> Wolf: Дом ещё стоит
+end
+
+== Атака на кирпичный дом ==
+Wolf -> BrickHouse: дуть()
+BrickHouse --> Wolf: получить урон
+BrickHouse -> BrickHouse: рассчитать урон с учётом сопротивления
+BrickHouse --> Wolf: состояние (разрушен/не разрушен)
+
+alt Дом разрушен
+    BrickHouse --> Wolf: Дом разрушен!
+    Wolf -> Pigs: погоня за поросятами
+    Pigs -> BrickHouse: некуда бежать!
+else Дом устоял
+    BrickHouse --> Wolf: Дом устоял!
+end
+
+== Попытка через дымоход ==
+Wolf -> BrickHouse: попытка пролезть в дымоход
+
+alt Дымоход укреплён
+    BrickHouse -> Wolf: ожог!
+    Wolf --> Wolf: волк убегает
+    BrickHouse -> Pigs: поросята спасены!
+else Дымоход не укреплён
+    Wolf -> BrickHouse: волк пролезает
+    BrickHouse -> Pigs: волк ловит поросят!
+end
+
+@enduml

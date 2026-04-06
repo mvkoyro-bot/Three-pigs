@@ -1,0 +1,75 @@
+@startuml
+class BaseHouse {
+    # name: string
+    # strength: int
+    # currentStrength: int
+    # resistance: double
+    # status: HouseStatus
+    --
+    + BaseHouse(n: string, str: int, res: double)
+    + takeDamage(damage: int): int
+    + repair(): void
+    + build(): void
+    + showInfo(): void
+    + getName(): string
+    + getCurrentStrength(): int
+    + getStatus(): HouseStatus
+    + getResistance(): double
+    + isDestroyed(): bool
+    + isReady(): bool
+    + isUnderConstruction(): bool
+}
+
+class StrawHouse {
+    + StrawHouse()
+}
+
+class WoodHouse {
+    + WoodHouse()
+}
+
+class BrickHouse {
+    + BrickHouse()
+}
+
+class Wolf {
+    - name: string
+    - strength: int
+    --
+    + Wolf()
+    + blow(house: BaseHouse*): void
+    + tryEnterChimney(house: BrickHouse*): bool
+}
+
+class GameController {
+    - strawHouse: StrawHouse*
+    - woodHouse: WoodHouse*
+    - brickHouse: BrickHouse*
+    - wolf: Wolf*
+    --
+    + GameController()
+    + startGame(): void
+    + buildHouses(): void
+    + wolfAttack(): void
+    + showGameStatus(): void
+    + ~GameController()
+}
+
+enum HouseStatus {
+    UNDER_CONSTRUCTION
+    READY
+    DESTROYED
+}
+
+BaseHouse <|-- StrawHouse
+BaseHouse <|-- WoodHouse
+BaseHouse <|-- BrickHouse
+
+GameController *-- StrawHouse
+GameController *-- WoodHouse
+GameController *-- BrickHouse
+GameController *-- Wolf
+
+Wolf --> BaseHouse : взаимодействует
+
+@enduml
