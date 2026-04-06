@@ -5,7 +5,7 @@
 
 | Диаграмма | Описание | Файл |
 |-----------|----------|------|
-| Use Case | Варианты использования системы | [use_case.md](use_case.md) |
+| Use Case | Варианты использования системы | [use_case (1).md](use_case (1).md) |
 | Class | Диаграмма классов (ООП структура) | [class.md](class.md) |
 | Activity | Алгоритм работы системы | [activity.md](activity.md) |
 | Sequence | Пошаговое взаимодействие объектов | [sequence.md](sequence.md) |
